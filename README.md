@@ -12,6 +12,18 @@
 
 Host standalone JS web app tools
 
+## JS tests
+
+Unit tests run with [Vitest](https://vitest.dev) from the repository root:
+
+    npm ci
+    npm test
+
+Tests live in `js_tests/`, next to the modules they import from
+`app_shell_*/static/src/`. Browser-specific code (`window`, `document`) is
+tested in jsdom: the test file declares it with a
+`// @vitest-environment jsdom` comment on its first line.
+
 <!-- /!\ do not modify below this line -->
 
 <!-- prettier-ignore-start -->
