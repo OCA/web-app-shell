@@ -11,5 +11,6 @@
     "category": "Tools",
     "license": "LGPL-3",
     "depends": ["base"],
+    "data": ["templates/importmap.xml"],
     "installable": True,
 }
