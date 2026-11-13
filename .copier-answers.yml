@@ -18,10 +18,10 @@ org_name: Odoo Community Association (OCA)
 org_slug: OCA
 postgres_image: ''
 rebel_module_groups: []
-repo_description: pwa-builder
-repo_name: pwa-builder
-repo_slug: pwa-builder
-repo_website: https://github.com/OCA/pwa-builder
+repo_description: Host standalone JS web app tools
+repo_name: Web app shell
+repo_slug: web-app-shell
+repo_website: https://github.com/OCA/web-app-shell
 use_pyproject_toml: true
 use_ruff: true
 

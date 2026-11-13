@@ -1,16 +1,16 @@
 
 [![Support the OCA](https://odoo-community.org/readme-banner-image)](https://odoo-community.org/get-involved?utm_source=repo-readme)
 
-# pwa-builder
-[![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/pwa-builder&target_branch=18.0)
-[![Pre-commit Status](https://github.com/OCA/pwa-builder/actions/workflows/pre-commit.yml/badge.svg?branch=18.0)](https://github.com/OCA/pwa-builder/actions/workflows/pre-commit.yml?query=branch%3A18.0)
-[![Build Status](https://github.com/OCA/pwa-builder/actions/workflows/test.yml/badge.svg?branch=18.0)](https://github.com/OCA/pwa-builder/actions/workflows/test.yml?query=branch%3A18.0)
-[![codecov](https://codecov.io/gh/OCA/pwa-builder/branch/18.0/graph/badge.svg)](https://codecov.io/gh/OCA/pwa-builder)
-[![Translation Status](https://translation.odoo-community.org/widgets/pwa-builder-18-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/pwa-builder-18-0/?utm_source=widget)
+# Web app shell
+[![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/web-app-shell&target_branch=18.0)
+[![Pre-commit Status](https://github.com/OCA/web-app-shell/actions/workflows/pre-commit.yml/badge.svg?branch=18.0)](https://github.com/OCA/web-app-shell/actions/workflows/pre-commit.yml?query=branch%3A18.0)
+[![Build Status](https://github.com/OCA/web-app-shell/actions/workflows/test.yml/badge.svg?branch=18.0)](https://github.com/OCA/web-app-shell/actions/workflows/test.yml?query=branch%3A18.0)
+[![codecov](https://codecov.io/gh/OCA/web-app-shell/branch/18.0/graph/badge.svg)](https://codecov.io/gh/OCA/web-app-shell)
+[![Translation Status](https://translation.odoo-community.org/widgets/web-app-shell-18-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/web-app-shell-18-0/?utm_source=widget)
 
 <!-- /!\ do not modify above this line -->
 
-pwa-builder
+Host standalone JS web app tools
 
 <!-- /!\ do not modify below this line -->
 
