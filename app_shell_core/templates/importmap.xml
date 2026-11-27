@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2026 Camptocamp SA (http://www.camptocamp.com)
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+    <!--
+    Render the import map of an app.
+
+    Call it in the `<head>` of the app's page, before any ES module,
+    passing the map explicitly (see `app.shell.mixin.importmap.make_app_importmap`):
+
+        <t t-call="app_shell_core.importmap">
+            <t t-set="importmap" t-value="app.make_app_importmap()" />
+        </t>
+    -->
+    <template id="importmap" name="App shell: import map">
+        <script id="script_importmap" type="importmap" t-out="json.dumps(importmap)" />
+    </template>
+</odoo>

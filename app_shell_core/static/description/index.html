@@ -1,0 +1,648 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
+<title>App shell core</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 9511 2024-01-13 09:50:07Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+Despite the name, some widely supported CSS2 features are used.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: gray; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic, pre.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<a class="reference external image-reference" href="https://odoo-community.org/get-involved?utm_source=readme">
+<img alt="Odoo Community Association" src="https://odoo-community.org/readme-banner-image" />
+</a>
+<div class="section" id="app-shell-core">
+<h1>App shell core</h1>
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! This file is generated by oca-gen-addon-readme !!
+!! changes will be overwritten.                   !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! source digest: sha256:32792845169804f34f323c46c0bc2df56c2f1a5922a1a530c89db01d01cff62b
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Alpha" src="https://img.shields.io/badge/maturity-Alpha-red.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html"><img alt="License: LGPL-3" src="https://img.shields.io/badge/license-LGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/web-app-shell/tree/18.0/app_shell_core"><img alt="OCA/web-app-shell" src="https://img.shields.io/badge/github-OCA%2Fweb--app--shell-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/web-app-shell-18-0/web-app-shell-18-0-app_shell_core"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/web-app-shell&amp;target_branch=18.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>Core tools to publish single page apps (SPA) from Odoo, without Odoo’s
+web client and assets bundles: the app is made of plain ES modules
+served from the <tt class="docutils literal">static</tt> folder of its modules.</p>
+<p>This first version provides the loading of the app’s JS via an <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap">import
+map</a>:</p>
+<ul class="simple">
+<li>every JS file of the app is loaded from a versioned URL (module
+version or hash of the content), so that a file is downloaded again
+only when it changes, with no version to put in the code;</li>
+<li>every module is loaded from a single URL, hence a single instance, no
+matter how it’s imported (relative or absolute path);</li>
+<li>any JS module can be replaced by another one server side, everywhere
+it is imported.</li>
+</ul>
+<p>It’s exposed by <tt class="docutils literal">app.shell.mixin.importmap</tt>, to inherit on the model
+describing your app. It’s the first piece of a generic “app shell”, see
+the roadmap.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This is an alpha version, the data model and design can change at any time without warning.
+Only for development or testing purpose, do not use in production.
+<a class="reference external" href="https://odoo-community.org/page/development-status">More details on development status</a></p>
+</div>
+<p><strong>Table of contents</strong></p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#usage" id="toc-entry-1">Usage</a><ul>
+<li><a class="reference internal" href="#expose-the-import-map-of-an-app" id="toc-entry-2">Expose the import map of an app</a></li>
+<li><a class="reference internal" href="#versioning" id="toc-entry-3">Versioning</a></li>
+<li><a class="reference internal" href="#replace-a-js-module" id="toc-entry-4">Replace a JS module</a></li>
+<li><a class="reference internal" href="#browser-support" id="toc-entry-5">Browser support</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-6">Known issues / Roadmap</a><ul>
+<li><a class="reference internal" href="#structure" id="toc-entry-7">Structure</a></li>
+<li><a class="reference internal" href="#stays-in-the-app-module-shopfloor" id="toc-entry-8">Stays in the app module (Shopfloor)</a></li>
+<li><a class="reference internal" href="#open-points" id="toc-entry-9">Open points</a></li>
+<li><a class="reference internal" href="#design-principles" id="toc-entry-10">Design principles</a></li>
+<li><a class="reference internal" href="#short-term" id="toc-entry-11">Short term</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-12">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-13">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-14">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-15">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-16">Maintainers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#toc-entry-1">Usage</a></h2>
+<div class="section" id="expose-the-import-map-of-an-app">
+<h3><a class="toc-backref" href="#toc-entry-2">Expose the import map of an app</a></h3>
+<p>Inherit <tt class="docutils literal">app.shell.mixin.importmap</tt> on the model describing your app
+and return the modules providing the app’s JS:</p>
+<pre class="code python literal-block">
+<span class="k">class</span><span class="w"> </span><span class="nc">MyApp</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span><span class="w">
+</span>    <span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;my.app&quot;</span><span class="w">
+</span>    <span class="n">_inherit</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;app.shell.mixin.importmap&quot;</span><span class="p">]</span><span class="w">
+
+</span>    <span class="k">def</span><span class="w"> </span><span class="nf">get_app_js_root_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span>        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;my_app_frontend&quot;</span><span class="p">,)</span>
+</pre>
+<p>The import map covers the JS files of the root modules (one or more) and
+of all the installed modules depending on them, each one mapped to a
+versioned URL. The method is called on the app record: the root modules
+can depend on it.</p>
+<p>Example, for <tt class="docutils literal">my_app_frontend</tt>:</p>
+<pre class="code json literal-block">
+<span class="p">{</span><span class="w">
+  </span><span class="nt">&quot;imports&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nt">&quot;/my_app_frontend/static/src/main.esm.js&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/my_app_frontend/static/src/main.esm.js?v=18.0.1.0.0&quot;</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span>
+</pre>
+<p>The map applies to every <tt class="docutils literal">import</tt>, relative (<tt class="docutils literal">./foo.esm.js</tt>) or
+absolute (<tt class="docutils literal">/other_module/static/src/foo.esm.js</tt>): every file is loaded
+from its versioned URL, without any version in the code, and all the
+modules importing the same file get the same instance of it.</p>
+<p>The list of files is computed once per process (files change only on
+deploy), or on every call in dev mode (<tt class="docutils literal"><span class="pre">--dev</span></tt>) so that new files are
+picked up without restarting.</p>
+<p>Pass the app record to the template of the app’s page (eg: as <tt class="docutils literal">app</tt>)
+and render the import map in <tt class="docutils literal">&lt;head&gt;</tt>, before any ES module, passing
+it explicitly:</p>
+<pre class="code xml literal-block">
+<span class="nt">&lt;t</span><span class="w"> </span><span class="na">t-call=</span><span class="s">&quot;app_shell_core.importmap&quot;</span><span class="nt">&gt;</span><span class="w">
+    </span><span class="nt">&lt;t</span><span class="w"> </span><span class="na">t-set=</span><span class="s">&quot;importmap&quot;</span><span class="w"> </span><span class="na">t-value=</span><span class="s">&quot;app.make_app_importmap()&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w">
+</span><span class="nt">&lt;/t&gt;</span><span class="w">
+</span><span class="nt">&lt;script</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;module&quot;</span><span class="nt">&gt;</span><span class="w">
+    </span>import<span class="w"> </span>&quot;/my_app_frontend/static/src/main.esm.js&quot;;<span class="w">
+</span><span class="nt">&lt;/script&gt;</span>
+</pre>
+<p>You decide which map is rendered: eg: one built or extended by your own
+code.</p>
+<p>Load ES modules with an inline module importing the plain URL (no
+version): the import map does not apply to the <tt class="docutils literal">src</tt> attribute.
+Classic scripts and stylesheets get their versioned URL from
+<tt class="docutils literal">get_app_static_url</tt>:</p>
+<pre class="code xml literal-block">
+<span class="nt">&lt;link</span><span class="w">
+    </span><span class="na">t-att-href=</span><span class="s">&quot;app.get_app_static_url('/my_app_frontend/static/src/main.css')&quot;</span><span class="w">
+    </span><span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="w">
+</span><span class="nt">/&gt;</span>
+</pre>
+</div>
+<div class="section" id="versioning">
+<h3><a class="toc-backref" href="#toc-entry-3">Versioning</a></h3>
+<p><tt class="docutils literal">js_version_mode</tt> decides the version appended to the URLs:</p>
+<ul class="simple">
+<li><strong>Module version</strong> (default): the version of the module providing the
+file. No file is read. Files are downloaded again only when the module
+version changes. Override <tt class="docutils literal">get_app_js_module_version</tt> for another
+policy (eg: a project version).</li>
+<li><strong>File content</strong>: a hash of the content of each file, read once per
+worker process (until the file changes on disk).</li>
+</ul>
+</div>
+<div class="section" id="replace-a-js-module">
+<h3><a class="toc-backref" href="#toc-entry-4">Replace a JS module</a></h3>
+<p>Override <tt class="docutils literal">get_app_js_overrides</tt> to replace a module everywhere it is
+imported. The replacement can still import the original URL to extend it
+(via import map <tt class="docutils literal">scopes</tt>), and must export the same names. When
+several modules replace the same URL, each one gets the previous one.</p>
+</div>
+<div class="section" id="browser-support">
+<h3><a class="toc-backref" href="#toc-entry-5">Browser support</a></h3>
+<p>Import maps are supported by Chrome/Edge 89+, Firefox 108+ and Safari
+16.4+. Older browsers ignore the map: modules are loaded from their
+plain URL, without versioning, and overrides are not applied.</p>
+</div>
+</div>
+<div class="section" id="known-issues-roadmap">
+<h2><a class="toc-backref" href="#toc-entry-6">Known issues / Roadmap</a></h2>
+<p>This module is the first piece of a generic <strong>app shell</strong>: the core
+tools to publish single page apps (SPA) from Odoo, without Odoo’s web
+client, so that any app can use them, not only the Shopfloor ones.</p>
+<p>It lives in its own repository, OCA/web-app-shell, together with the
+satellite modules below. Shopfloor (OCA/shopfloor-app) is its first user
+and becomes one of its consumers.</p>
+<div class="section" id="structure">
+<h3><a class="toc-backref" href="#toc-entry-7">Structure</a></h3>
+<p>A small core, plus satellite modules for specific features. Each
+satellite is a feature someone can install on its own, not one module
+per file.</p>
+<ul class="simple">
+<li><strong>``app_shell_core``</strong> (this module): generic and dependency-free.<ul>
+<li>Import map, versioning, overrides, and the
+<tt class="docutils literal">app.shell.mixin.importmap</tt>.</li>
+<li>App page and PWA plumbing: page controller, manifest, icons, app
+info.</li>
+<li>Runtime registries: config, generic registry, utils, colors.</li>
+<li>REST client (<tt class="docutils literal">odoo.esm.js</tt>, <tt class="docutils literal">fetch.js</tt>) and the vanilla event
+hub.</li>
+<li>Auth handler registry (the auth modules plug into it).</li>
+</ul>
+</li>
+<li><strong>``app_shell_bus``</strong>: client for Odoo’s bus (websocket worker, no
+Odoo web client), the app’s bus channel, and the worker version in app
+info. Depends on core and <tt class="docutils literal">bus</tt>.</li>
+<li><strong>``app_shell_sync``</strong>: sync manager, version detection and update
+flow, upgrade manager, connectivity status. Depends on core and
+<tt class="docutils literal">app_shell_bus</tt>. Kept apart from the bus, so that an app can receive
+notifications without the sync behaviour.</li>
+<li><strong>``app_shell_i18n``</strong>: translation registry, the en/fr/de catalogues,
+and the language settings page. Depends on core only.</li>
+<li><strong>``app_shell_demo``</strong>: the demo mode machinery and the mocked
+backend. Demo data stays in each app: only the framework moves.</li>
+<li><strong>``app_shell_ui``</strong>: generic UI components and theme: screen, list,
+manual select, searchbar and filters, date picker, number spinner,
+priority widget, user information and confirmation, report issue,
+detail card and mixin. These are Vue 2 components today: the module is
+named by purpose, and a Vue 3 rewrite is expected to replace them
+rather than move them.</li>
+<li><strong>Auth modules</strong> (eg: <tt class="docutils literal">shopfloor_mobile_base_auth_api_key</tt>) stay
+satellites of core, as today.</li>
+</ul>
+<p>Suggested order: core, then <tt class="docutils literal">app_shell_bus</tt> (already built), then
+<tt class="docutils literal">app_shell_i18n</tt> and <tt class="docutils literal">app_shell_ui</tt> (cheapest moves, most reuse),
+then <tt class="docutils literal">app_shell_sync</tt> (depends on the bus), then <tt class="docutils literal">app_shell_demo</tt>
+once another app needs it.</p>
+</div>
+<div class="section" id="stays-in-the-app-module-shopfloor">
+<h3><a class="toc-backref" href="#toc-entry-8">Stays in the app module (Shopfloor)</a></h3>
+<p>The domain part, which is not a shell concern:</p>
+<ul class="simple">
+<li>scenarios: the scenario state machine (<tt class="docutils literal">scenario/mixins</tt>), form
+scenarios, and the scan-anything service;</li>
+<li>profiles and menus: the profile settings page and the menu wiring;</li>
+<li>router and homepage, which map the app’s menus and scenarios to
+routes;</li>
+<li>the Shopfloor app record and its app info.</li>
+</ul>
+</div>
+<div class="section" id="open-points">
+<h3><a class="toc-backref" href="#toc-entry-9">Open points</a></h3>
+<ul class="simple">
+<li><tt class="docutils literal">loginpage</tt>: generic, but tied to the auth flow. Move it with auth.</li>
+<li><tt class="docutils literal">settings</tt>: the settings page registry is generic, the profile entry
+is not.</li>
+<li>App record basics (URL, auth type, languages, running environment),
+now in <tt class="docutils literal">shopfloor_base</tt>: they belong in core too. A separate and
+larger move.</li>
+</ul>
+</div>
+<div class="section" id="design-principles">
+<h3><a class="toc-backref" href="#toc-entry-10">Design principles</a></h3>
+<ul class="simple">
+<li>No dependency on <tt class="docutils literal">base_rest</tt> or <tt class="docutils literal">component</tt> in the core: REST
+services belong to each app.</li>
+<li>Mixins on the app’s model rather than new tables, so that apps adopt
+the pieces without data migration.</li>
+<li>Backward compatibility for apps moving to it: template ids kept as
+extension points, legacy import map entries for moved JS files.</li>
+<li>Framework-agnostic runtime services (plain JS), so they can be shared
+by Vue 2, Vue 3 or plain JS apps.</li>
+</ul>
+</div>
+<div class="section" id="short-term">
+<h3><a class="toc-backref" href="#toc-entry-11">Short term</a></h3>
+<ul class="simple">
+<li>Test the mixin in the core itself, with a test app model (today tested
+through <tt class="docutils literal">shopfloor.app</tt> in <tt class="docutils literal">shopfloor_mobile_base</tt>).</li>
+<li>Reusable UI test commands and tasks, the docker compose setup and the
+CI workflow, to test apps in a real browser.</li>
+<li>Support Odoo 16, to backport and forward port the same files.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="bug-tracker">
+<h2><a class="toc-backref" href="#toc-entry-12">Bug Tracker</a></h2>
+<p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/web-app-shell/issues">GitHub Issues</a>.
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us to smash it by providing a detailed and welcomed
+<a class="reference external" href="https://github.com/OCA/web-app-shell/issues/new?body=module:%20app_shell_core%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<p>Do not contact contributors directly about support or help with technical issues.</p>
+</div>
+<div class="section" id="credits">
+<h2><a class="toc-backref" href="#toc-entry-13">Credits</a></h2>
+<div class="section" id="authors">
+<h3><a class="toc-backref" href="#toc-entry-14">Authors</a></h3>
+<ul class="simple">
+<li>Camptocamp</li>
+</ul>
+</div>
+<div class="section" id="contributors">
+<h3><a class="toc-backref" href="#toc-entry-15">Contributors</a></h3>
+<ul class="simple">
+<li>Simone Orsi &lt;<a class="reference external" href="mailto:simone.orsi&#64;camptocamp.com">simone.orsi&#64;camptocamp.com</a>&gt;</li>
+</ul>
+</div>
+<div class="section" id="maintainers">
+<h3><a class="toc-backref" href="#toc-entry-16">Maintainers</a></h3>
+<p>This module is maintained by the OCA.</p>
+<a class="reference external image-reference" href="https://odoo-community.org">
+<img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
+</a>
+<p>OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.</p>
+<p>Current <a class="reference external" href="https://odoo-community.org/page/maintainer-role">maintainer</a>:</p>
+<p><a class="reference external image-reference" href="https://github.com/simahawk"><img alt="simahawk" src="https://github.com/simahawk.png?size=40px" /></a></p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/web-app-shell/tree/18.0/app_shell_core">OCA/web-app-shell</a> project on GitHub.</p>
+<p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
